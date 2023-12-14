@@ -1,0 +1,188 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "ImportDeclaration",
+      "specifiers": [{ "type": "Identifier", "id": "assert" }],
+      "source": {
+        "type": "StringLiteral",
+        "value": "assert",
+        "raw": "\"assert\""
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "add" },
+        "init": {
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "params": [
+            { "type": "Identifier", "id": "x" },
+            { "type": "Identifier", "id": "y" }
+          ],
+          "body": [
+            {
+              "type": "BinaryExpression",
+              "left": { "type": "Identifier", "id": "x" },
+              "op": { "type": "PLUS", "value": "+" },
+              "right": { "type": "Identifier", "id": "y" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "addOne" },
+        "init": {
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "params": [{ "type": "Identifier", "id": "x" }],
+          "body": [
+            {
+              "type": "FunctionCallExpression",
+              "callee": { "type": "Identifier", "id": "add" },
+              "args": [
+                { "type": "NumberLiteral", "value": "1" },
+                { "type": "Identifier", "id": "x" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "addTwo" },
+        "init": {
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "params": [{ "type": "Identifier", "id": "x" }],
+          "body": [
+            {
+              "type": "FunctionCallExpression",
+              "callee": { "type": "Identifier", "id": "add" },
+              "args": [
+                { "type": "NumberLiteral", "value": "2" },
+                { "type": "Identifier", "id": "x" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "$0" },
+        "init": {
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "params": [{ "type": "Identifier", "id": "x" }],
+          "body": [
+            {
+              "type": "FunctionCallExpression",
+              "callee": { "type": "Identifier", "id": "add" },
+              "args": [
+                { "type": "NumberLiteral", "value": "3" },
+                { "type": "Identifier", "id": "x" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+
+    // AST node before transforming
+    // {
+    //   "type": "VariableDeclaration",
+    //   "kind": "const",
+    //   "declaration": {
+    //     "type": "VariableDeclarator",
+    //     "id": { "type": "Identifier", "id": "result" },
+    //     "init": {
+    //       "type": "BinaryExpression",
+    //       "left": {
+    //         "type": "BinaryExpression",
+    //         "left": {
+    //           "type": "BinaryExpression",
+    //           "left": { "type": "NumberLiteral", "value": "1" },
+    //           "op": { "type": "PIPELINE", "value": "|>" },
+    //           "right": { "type": "Identifier", "id": "addOne" }
+    //         },
+    //         "op": { "type": "PIPELINE", "value": "|>" },
+    //         "right": { "type": "Identifier", "id": "addTwo" }
+    //       },
+    //       "op": { "type": "PIPELINE", "value": "|>" },
+    //       "right": {
+    //         "type": "ArrowFunctionExpression",
+    //         "id": null,
+    //         "params": [{ "type": "Identifier", "id": "x" }],
+    //         "body": [
+    //           {
+    //             "type": "FunctionCallExpression",
+    //             "callee": { "type": "Identifier", "id": "add" },
+    //             "args": [
+    //               { "type": "NumberLiteral", "value": "3" },
+    //               { "type": "Identifier", "id": "x" }
+    //             ]
+    //           }
+    //         ]
+    //       }
+    //     }
+    //   }
+    // },
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "result" },
+        "init": {
+          "type": "FunctionCallExpression",
+          "callee": { "type": "Identifier", "id": "$0" },
+          "args": [
+            {
+              "type": "FunctionCallExpression",
+              "callee": { "type": "Identifier", "id": "addTwo" },
+              "args": [
+                {
+                  "type": "FunctionCallExpression",
+                  "callee": { "type": "Identifier", "id": "addOne" },
+                  "args": [{ "type": "NumberLiteral", "value": "1" }]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "FunctionCallExpression",
+      "callee": {
+        "type": "MemberExpression",
+        "object": { "type": "Identifier", "id": "assert" },
+        "property": { "type": "Identifier", "id": "ok" }
+      },
+      "args": [
+        {
+          "type": "BinaryExpression",
+          "left": { "type": "Identifier", "id": "result" },
+          "op": { "type": "EQEQEQ", "value": "===" },
+          "right": { "type": "NumberLiteral", "value": "7" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "type": "Program",
+  "body": [
+    // import assert from 'assert';
+    {
+      "type": "ImportDeclaration",
+      "specifiers": [{ "type": "Identifier", "id": "assert" }],
+      "source": {
+        "type": "StringLiteral",
+        "value": "assert",
+        "raw": "\"assert\""
+      }
+    },
+
+    // const add = (x, y) => x + y;
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "add" },
+        "init": {
+          // (x, y) => x + y
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "params": [
+            { "type": "Identifier", "id": "x" },
+            { "type": "Identifier", "id": "y" }
+          ],
+          "body": [
+            // x + y
+            {
+              "type": "BinaryExpression",
+              "left": { "type": "Identifier", "id": "x" },
+              "op": { "type": "PLUS", "value": "+" },
+              "right": { "type": "Identifier", "id": "y" }
+            }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "addOne" },
+        "init": {
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "params": [{ "type": "Identifier", "id": "x" }],
+          "body": [
+            {
+              "type": "FunctionCallExpression",
+              "callee": { "type": "Identifier", "id": "add" },
+              "args": [
+                { "type": "NumberLiteral", "value": "1" },
+                { "type": "Identifier", "id": "x" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "addTwo" },
+        "init": {
+          "type": "ArrowFunctionExpression",
+          "id": null,
+          "params": [{ "type": "Identifier", "id": "x" }],
+          "body": [
+            {
+              "type": "FunctionCallExpression",
+              "callee": { "type": "Identifier", "id": "add" },
+              "args": [
+                { "type": "NumberLiteral", "value": "2" },
+                { "type": "Identifier", "id": "x" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "VariableDeclaration",
+      "kind": "const",
+      "declaration": {
+        "type": "VariableDeclarator",
+        "id": { "type": "Identifier", "id": "result" },
+        "init": {
+          "type": "BinaryExpression",
+          "left": {
+            "type": "BinaryExpression",
+            "left": {
+              "type": "BinaryExpression",
+              "left": { "type": "NumberLiteral", "value": "1" },
+              "op": { "type": "PIPELINE", "value": "|>" },
+              "right": { "type": "Identifier", "id": "addOne" }
+            },
+            "op": { "type": "PIPELINE", "value": "|>" },
+            "right": { "type": "Identifier", "id": "addTwo" }
+          },
+          "op": { "type": "PIPELINE", "value": "|>" },
+          "right": {
+            "type": "ArrowFunctionExpression",
+            "id": null,
+            "params": [{ "type": "Identifier", "id": "x" }],
+            "body": [
+              {
+                "type": "FunctionCallExpression",
+                "callee": { "type": "Identifier", "id": "add" },
+                "args": [
+                  { "type": "NumberLiteral", "value": "3" },
+                  { "type": "Identifier", "id": "x" }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "FunctionCallExpression",
+      "callee": {
+        "type": "MemberExpression",
+        "object": { "type": "Identifier", "id": "assert" },
+        "property": { "type": "Identifier", "id": "ok" }
+      },
+      "args": [
+        {
+          "type": "BinaryExpression",
+          "left": { "type": "Identifier", "id": "result" },
+          "op": { "type": "EQEQEQ", "value": "===" },
+          "right": { "type": "NumberLiteral", "value": "7" }
+        }
+      ]
+    }
+  ]
+}

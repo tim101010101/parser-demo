@@ -1,0 +1,19 @@
+{
+  "name": "@repo/rollup-plugin-typescript",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "test": "echo \"hello world\""
+  },
+  "dependencies": {
+    "lodash": "4.17.21",
+    "@rollup/pluginutils": "^4.1.2",
+    "tslib": "^2.6.2",
+    "typescript": ">=2.4.0"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

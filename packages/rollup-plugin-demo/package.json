@@ -1,0 +1,16 @@
+{
+  "name": "@repo/rollup-plugin-demo",
+  "type": "module",
+  "scripts": {
+    "test": "node script/test.js",
+    "build": "node script/build.js"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "magic-string": "^0.30.5",
+    "rollup": "^4.6.1"
+  }
+}
